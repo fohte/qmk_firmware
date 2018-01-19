@@ -5,12 +5,14 @@
 #define DVORAK 0
 #define MOVE 1
 #define NUM_HOME 2
+#define SYMBOL 3
+#define STRICT 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Dvorak
 [DVORAK] = KEYMAP(
-    KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,
+    KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, TG(STRICT),
     KC_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_LBRC,
     KC_LCTL, KC_A, KC_O, KC_E, KC_U, KC_I,
     KC_LSFT, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_BSLS,
@@ -23,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RBRC, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
     KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
     KC_EQL, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSFT,
-    KC_RGUI, KC_RCTL, KC_RALT, KC_NO, KC_NO,
+    KC_RGUI, MO(SYMBOL), KC_RALT, KC_NO, KC_NO,
     KC_NO, KC_NO,
     KC_NO,
     MO(MOVE), KC_ESC, KC_ENT
@@ -65,6 +67,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRNS,
     KC_6, KC_7, KC_8, KC_9, KC_0, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+// Number and Fuction keys
+[SYMBOL] = KEYMAP(
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, S(KC_QUOT), S(KC_COMM), S(KC_DOT), KC_LBRC, S(KC_LBRC), KC_TRNS,
+    KC_TRNS, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),
+    KC_TRNS, S(KC_SCLN), KC_TRNS, KC_TRNS, KC_BSLS, S(KC_BSLS), KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,
+
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, S(KC_RBRC), KC_RBRC, KC_GRV, S(KC_GRV), KC_TRNS, KC_TRNS,
+    S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_TRNS,
+    KC_TRNS, S(KC_EQL), KC_EQL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+// Strict
+[STRICT] = KEYMAP(
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,
+
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS,
     KC_TRNS,
@@ -115,6 +159,9 @@ void matrix_scan_user(void) {
             break;
         case NUM_HOME:
             ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
+            break;
+        case STRICT:
             ergodox_right_led_3_on();
             break;
         default:
