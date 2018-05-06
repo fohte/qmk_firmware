@@ -1,11 +1,14 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "pubg.h"
 
 #define DVORAK 0
 #define MOVE 1
 #define NUM_HOME 2
 #define SYMBOL 3
+#define PUBG 4
+#define PUBG2 5
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -20,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,
     KC_SPC, KC_BSPC, LALT(KC_SPACE),
 
-    RESET, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO,
+    RESET, KC_6, KC_7, KC_8, KC_9, KC_0, TG(PUBG),
     KC_RBRC, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
     KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
     KC_EQL, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSFT,
@@ -92,6 +95,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS
 ),
+
+[PUBG] = KEYMAP(
+    KC_INSERT, PUBG_BANDAGE, PUBG_FIRST_AID_KIT, PUBG_MED_KIT, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_PGUP,
+    KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G,
+    KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_PGDN,
+    KC_V, KC_NO, KC_LALT, MO(PUBG2), KC_M,
+    KC_NO, KC_5,
+    KC_2,
+    KC_SPC, KC_BSPC, KC_1,
+
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO,
+    KC_NO,
+    KC_NO, KC_NO, TG(PUBG)
+),
+
+[PUBG2] = KEYMAP(
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, LCTL(KC_1), LCTL(KC_2), KC_NO, PUBG_AUTO_RUN, KC_NO, KC_NO,
+    KC_NO, LCTL(KC_3), LCTL(KC_4), KC_NO, KC_V, KC_NO,
+    KC_NO, LCTL(KC_5), LCTL(KC_6), KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO,
+    KC_NO,
+    KC_NO, KC_NO, KC_NO,
+
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO,
+    KC_NO,
+    KC_NO, KC_NO, KC_NO
+),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -137,6 +180,10 @@ void matrix_scan_user(void) {
             break;
         case NUM_HOME:
             ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
+            break;
+        case PUBG:
+        case PUBG2:
             ergodox_right_led_3_on();
             break;
         default:
