@@ -13,7 +13,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Dvorak
-[DVORAK] = KEYMAP(
+[DVORAK] = LAYOUT_ergodox(
     KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,
     KC_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_LBRC,
     KC_LCTL, KC_A, KC_O, KC_E, KC_U, KC_I,
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 // Cursor Moving
-[MOVE] = KEYMAP(
+[MOVE] = LAYOUT_ergodox(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 // Number and Fuction keys
-[NUM_HOME] = KEYMAP(
+[NUM_HOME] = LAYOUT_ergodox(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_TRNS,
     KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5,
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 // Number and Fuction keys
-[SYMBOL] = KEYMAP(
+[SYMBOL] = LAYOUT_ergodox(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, S(KC_QUOT), S(KC_COMM), S(KC_DOT), KC_LBRC, S(KC_LBRC), KC_TRNS,
     KC_TRNS, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-[PUBG] = KEYMAP(
+[PUBG] = LAYOUT_ergodox(
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,
     KC_NO, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_PGUP,
     KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G,
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO, KC_NO, KC_NO
 ),
 
-[PUBG2] = KEYMAP(
+[PUBG2] = LAYOUT_ergodox(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, LCTL(KC_1), LCTL(KC_2), KC_NO, PUBG_AUTO_RUN, KC_NO, KC_NO,
     KC_NO, LCTL(KC_3), LCTL(KC_4), KC_NO, KC_V, KC_NO,
