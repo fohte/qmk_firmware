@@ -23,6 +23,7 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
     _DVORAK = 0,
+    _CURSOR,
     _ADJUST,
     _SYMBOL,
     _NUMBER,
@@ -35,6 +36,7 @@ enum layer_number {
 //   // KANA,
 // };
 
+#define CURSOR MO(_CURSOR)
 #define ADJUST MO(_ADJUST)
 #define SYMBOL MO(_SYMBOL)
 #define NUMBER MO(_NUMBER)
@@ -80,14 +82,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
       KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
       KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-      _______, MSPACE,  KC_LALT, NUMBER,  KC_LGUI, KC_SPC,  KC_BSPC, KC_ESC,  KC_ENT,  KC_RGUI, SYMBOL,  KC_RALT, ADJUST,  _______ \
+      _______, MSPACE,  KC_LALT, NUMBER,  KC_LGUI, KC_SPC,  KC_BSPC, KC_ESC,  KC_ENT,  KC_RGUI, SYMBOL,  KC_RALT, CURSOR,  ADJUST \
       ),
 
-  /* Cursor Moving & Adjust
+  /* Cursor Moving
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             | Left | Down |  Up  |Right |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_CURSOR] =  LAYOUT( \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+      ),
+
+  /* Adjust
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |Reset |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      | Left | Down |  Up  |Right |      |
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |RGB ON| HUE+ | SAT+ | VAL+ |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
@@ -96,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] =  LAYOUT( \
       _______, RESET,   _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                   _______, _______, _______, _______, _______, _______, \
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
@@ -199,6 +219,7 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
+#define L_CURSOR (1<<_CURSOR)
 #define L_ADJUST (1<<_ADJUST)
 #define L_SYMBOL (1<<_SYMBOL)
 #define L_NUMBER (1<<_NUMBER)
@@ -234,6 +255,9 @@ void render_status(struct CharacterMatrix *matrix) {
     switch (layer_state) {
         case L_BASE:
            matrix_write_P(matrix, PSTR("Default"));
+           break;
+        case L_CURSOR:
+           matrix_write_P(matrix, PSTR("Cursor"));
            break;
         case L_ADJUST:
            matrix_write_P(matrix, PSTR("Adjust"));
